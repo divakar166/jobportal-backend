@@ -1,4 +1,5 @@
-from .company_schema import company_serial
+from .companies import company_serial
+
 
 def job_serial(job) -> dict:
     return {
@@ -19,6 +20,7 @@ def job_serial(job) -> dict:
         "conditions": job.conditions,
         "application_link": job.application_link
     }
+
 
 def job_list_serial(jobs) -> list:
     return [job_serial(job) for job in jobs]
