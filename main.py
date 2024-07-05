@@ -19,6 +19,10 @@ app.include_router(dev_router, prefix='/developers')
 app.include_router(job_router, prefix='/jobs')
 app.include_router(company_router, prefix='/companies')
 
+@app.get("/")
+def index():
+    {"message": "Welcome to Connect - JobPortal Backend"}
+
 import uvicorn
 if __name__ == "__main__":
     uvicorn.run(app)
