@@ -1,24 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
-from routes.developers import dev_router
-from routes.companies import company_router
-from routes.jobs import job_router
+from routes import auth_routes, company_routes, dev_routes, job_routes
 
 app = FastAPI()
 
 origins = [
     'http://localhost:5173/', 'https://jobportal-divakar166.vercel.app/'
 ]
-app.add_middleware(CORSMiddleware,
-                   allow_origins=origins,
-                   allow_credentials=True,
-                   allow_methods=["*"],
-                   allow_headers=["*"])
+app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=["*"],allow_headers=["*"])
 
-app.include_router(dev_router, prefix='/developers')
-app.include_router(job_router, prefix='/jobs')
-app.include_router(company_router, prefix='/companies')
+app.include_router(auth_routes.router, prefix="/auth", tags=["auth"])
+app.include_router(company_routes.router, prefix="/companies", tags=["companies"])
+app.include_router(dev_routes.router, prefix="/developers", tags=["developers"])
+app.include_router(job_routes.router, prefix="/jobs", tags=["jobs"])
 
 @app.get("/", response_class=HTMLResponse)
 def index():

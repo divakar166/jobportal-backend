@@ -1,6 +1,5 @@
 from .companies import company_serial
 
-
 def job_serial(job) -> dict:
     return {
         "title": job.title,
